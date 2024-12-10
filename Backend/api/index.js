@@ -1,8 +1,8 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import taskRoutes from "../routes/tasks"; // Import task routes
+const express = require("express");
+const mongoose = require("mongoose");
+const cors = require("cors");
+const dotenv = require("dotenv");
+const taskRoutes = require("../routes/tasks"); // Import task routes
 
 dotenv.config(); // Load environment variables
 
@@ -27,4 +27,4 @@ app.get("/", (req, res) => {
 });
 
 // Export the Express app for Vercel
-export default app;
+module.exports = app; // Change from `export default app;`
