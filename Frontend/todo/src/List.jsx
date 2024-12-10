@@ -14,7 +14,7 @@ const List = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/tasks");
+        const response = await axios.get("http://todo-phi-eight-45.vercel.app");
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
