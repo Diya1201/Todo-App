@@ -9,7 +9,7 @@ dotenv.config();
 const app = express();
 
 // Allow only your frontend to access the backend
-const allowedOrigins = ['https://todo-cp8jfticn-diya1201s-projects.vercel.app'];
+const allowedOrigins = ['https://todo-app-iota-fawn.vercel.app'];
 
 const corsOptions = {
   origin: function (origin, callback) {
