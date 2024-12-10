@@ -17,7 +17,7 @@ const List = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/tasks`);
+        const response = await axios.get(`${BASE_URL}`);
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -34,7 +34,7 @@ const List = () => {
           isStarred: false,
           status: "Pending",
         };
-        const response = await axios.post(`${BASE_URL}/api/tasks`, newTask);
+        const response = await axios.post(`${BASE_URL}`, newTask);
         setTasks([...tasks, response.data]);
         setTask(""); // Clear the input field after adding the task
       } catch (error) {
@@ -45,7 +45,7 @@ const List = () => {
 
   const toggleStar = async (id) => {
     try {
-      const response = await axios.patch(`${BASE_URL}/api/tasks/${id}/important`);
+      const response = await axios.patch(`${BASE_URL}/${id}/important`);
       const updatedTask = response.data;
 
       // Update the task in the local state
@@ -61,7 +61,7 @@ const List = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/api/tasks/${id}`);
+      await axios.delete(`${BASE_URL}/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -70,7 +70,7 @@ const List = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`${BASE_URL}/api/tasks/${id}`, { status });
+      await axios.patch(`${BASE_URL}/${id}`, { status });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task._id === id ? { ...task, status } : task
@@ -88,7 +88,7 @@ const List = () => {
 
   const saveEdit = async (id) => {
     try {
-      const updatedTask = await axios.patch(`${BASE_URL}/api/tasks/${id}`, {
+      const updatedTask = await axios.patch(`${BASE_URL}/${id}`, {
         text: editedText,
       });
       setTasks((prevTasks) =>
