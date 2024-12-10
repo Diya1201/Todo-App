@@ -1,9 +1,8 @@
-import express from 'express';
-import mongoose from 'mongoose';
-import cors from 'cors';
-import dotenv from 'dotenv';
-import taskRoutes from '../routes/tasks'; // Import task routes
-import { createServer } from '@vercel/node';
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const taskRoutes = require('../routes/tasks'); // Import task routes
 
 dotenv.config(); // Load environment variables
 
@@ -27,5 +26,5 @@ app.get("/", (req, res) => {
   res.send("Backend is running!");
 });
 
-// Export the Express app as a serverless function
-export default createServer(app);
+// Export the Express app as a serverless function for Vercel
+module.exports = app;
