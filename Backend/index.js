@@ -8,8 +8,32 @@ dotenv.config(); // Load environment variables
 
 const app = express(); // Initialize Express app
 
+
+
+// Allow only specific frontend to access the backend
+const allowedOrigins = ['https://todo-cp8jfticn-diya1201s-projects.vercel.app'];
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
+      callback(null, true); // Allow request
+    } else {
+      callback(new Error('Not allowed by CORS')); // Deny request
+    }
+  },
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'], // Allowed HTTP methods
+  allowedHeaders: ['Content-Type'], // Allowed headers
+};
+
+app.use(cors(corsOptions));
+// Allow CORS for all domains (not recommended for production)
+/*app.use(cors({
+  origin: 'https://todo-app-iota-fawn.vercel.app', // Only allow requests from your frontend
+  methods: ['GET', 'POST', 'PATCH', 'DELETE'],
+}));
+*/
+
 // Middleware
-app.use(cors()); // Enable CORS for frontend-backend communication
 app.use(express.json()); // Parse JSON request bodies
 
 // MongoDB Connection
@@ -27,5 +51,6 @@ app.get("/", (req, res) => {
 });
 
 // Listen on a port (e.g., 5000) when running locally
+
 // Export the Express app as a serverless function for Vercel
 module.exports = app;
