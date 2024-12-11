@@ -3,9 +3,6 @@ import { FiSearch, FiTrash2, FiChevronDown } from "react-icons/fi";
 import axios from "axios";
 import { FaStar } from "react-icons/fa";
 
-// Configure Backend URL (use .env or fallback to localhost)
-const BASE_URL = process.env.REACT_APP_BACKEND_URL || "http://localhost:5000";
-
 const List = () => {
   const [task, setTask] = useState("");
   const [tasks, setTasks] = useState([]);
@@ -17,7 +14,7 @@ const List = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get(`${BASE_URL}/api/tasks`);
+        const response = await axios.get("http://localhost:5000/api/tasks");
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -34,7 +31,8 @@ const List = () => {
           isStarred: false,
           status: "Pending",
         };
-        const response = await axios.post(`${BASE_URL}/api/tasks`, newTask);
+        // Make a POST request to the backend to add the task
+        const response = await axios.post("http://localhost:5000/api/tasks", newTask);
         setTasks([...tasks, response.data]);
         setTask(""); // Clear the input field after adding the task
       } catch (error) {
@@ -45,7 +43,7 @@ const List = () => {
 
   const toggleStar = async (id) => {
     try {
-      const response = await axios.patch(`${BASE_URL}/api/tasks/${id}/important`);
+      const response = await axios.patch(`http://localhost:5000/api/tasks/${id}/important`);
       const updatedTask = response.data;
 
       // Update the task in the local state
@@ -61,7 +59,7 @@ const List = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`${BASE_URL}/api/tasks/${id}`);
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -70,7 +68,7 @@ const List = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`${BASE_URL}/api/tasks/${id}`, { status });
+      await axios.patch(`http://localhost:5000/api/tasks/${id}`, { status });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task._id === id ? { ...task, status } : task
@@ -88,7 +86,7 @@ const List = () => {
 
   const saveEdit = async (id) => {
     try {
-      const updatedTask = await axios.patch(`${BASE_URL}/api/tasks/${id}`, {
+      const updatedTask = await axios.patch(`http://localhost:5000/api/tasks/${id}`, {
         text: editedText,
       });
       setTasks((prevTasks) =>
@@ -150,12 +148,15 @@ const List = () => {
               }`}
           >
             <div className="relative">
+              {/* Chevron Down Button for Status */}
               <button
                 onClick={() => toggleDropdown(task._id)}
                 className="p-2 text-gray-500 hover:text-gray-700"
               >
                 <FiChevronDown className="w-5 h-5" />
               </button>
+
+              {/* Status Dropdown */}
               {task.showDropdown && (
                 <ul
                   className="absolute left-0 mt-2 bg-white border border-gray-300 shadow-md rounded-md z-50"
