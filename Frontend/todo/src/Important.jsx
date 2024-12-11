@@ -9,7 +9,7 @@ const Important = () => {
     useEffect(() => {
         const fetchImportantTasks = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/tasks");
+                const response = await fetch("http://todo-app-u4re.vercel.app/api/tasks");
                 if (!response.ok) throw new Error("Failed to fetch tasks.");
                 const data = await response.json();
                 const importantTasks = data.filter((task) => task.isStarred);
