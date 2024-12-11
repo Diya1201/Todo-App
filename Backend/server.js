@@ -7,7 +7,7 @@ require('dotenv').config();
 const tasksRouter = require('./routes/tasks');  // Adjust the path to your tasks.js file
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
