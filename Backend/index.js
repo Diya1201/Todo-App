@@ -11,8 +11,8 @@ const app = express(); // Initialize Express app
 
 
 // Allow only specific frontend to access the backend
-const allowedOrigins = ['https://todo-cp8jfticn-diya1201s-projects.vercel.app'];
-
+//const allowedOrigins = ['https://todo-cp8jfticn-diya1201s-projects.vercel.app'];
+/*
 const corsOptions = {
   origin: function (origin, callback) {
     if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
@@ -25,9 +25,9 @@ const corsOptions = {
   allowedHeaders: ['Content-Type'], // Allowed headers
 };
 
-app.use(cors(corsOptions));
+//app.use(cors(corsOptions));
 // Allow CORS for all domains (not recommended for production)
-/*app.use(cors({
+app.use(cors({
   origin: 'https://todo-app-iota-fawn.vercel.app', // Only allow requests from your frontend
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 }));
