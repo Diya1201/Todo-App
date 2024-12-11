@@ -9,7 +9,9 @@ dotenv.config(); // Load environment variables
 const app = express(); // Initialize Express app
 
 
-
+const corsOptions={
+  origin: false 
+};
 // Allow only specific frontend to access the backend
 //const allowedOrigins = ['https://todo-cp8jfticn-diya1201s-projects.vercel.app'];
 /*
@@ -32,7 +34,7 @@ app.use(cors({
   methods: ['GET', 'POST', 'PATCH', 'DELETE'],
 }));
 */
-
+app.use(cors(corsOptions));
 // Middleware
 app.use(express.json()); // Parse JSON request bodies
 
