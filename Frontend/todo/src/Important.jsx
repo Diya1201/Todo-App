@@ -26,7 +26,7 @@ const Important = () => {
     const refreshTasks = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://localhost:5000/api/tasks");
+            const response = await fetch("http://todo-app-u4re.vercel.app/api/tasks");
             const data = await response.json();
             const importantTasks = data.filter((task) => task.isStarred);
             setTasks(importantTasks);
