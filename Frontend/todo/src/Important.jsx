@@ -9,7 +9,7 @@ const Important = () => {
     useEffect(() => {
         const fetchImportantTasks = async () => {
             try {
-                const response = await fetch("http://stark-ravine-55105-4213c3435c17.herokuapp.com/api/tasks");
+                const response = await fetch("https://stark-ravine-55105-4213c3435c17.herokuapp.com/api/tasks");
                 if (!response.ok) throw new Error("Failed to fetch tasks.");
                 const data = await response.json();
                 const importantTasks = data.filter((task) => task.isStarred);
@@ -26,7 +26,7 @@ const Important = () => {
     const refreshTasks = async () => {
         setLoading(true);
         try {
-            const response = await fetch("http://stark-ravine-55105-4213c3435c17.herokuapp.com/api/tasks");
+            const response = await fetch("https://stark-ravine-55105-4213c3435c17.herokuapp.com/api/tasks");
             const data = await response.json();
             const importantTasks = data.filter((task) => task.isStarred);
             setTasks(importantTasks);
