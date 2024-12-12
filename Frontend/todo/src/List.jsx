@@ -10,11 +10,13 @@ const List = () => {
   const [editingTaskId, setEditingTaskId] = useState(null);
   const [editedText, setEditedText] = useState("");
 
+  const BASE_URL = "https://stark-ravine-55105-4213c3435c17.herokuapp.com";
+
   // Fetch tasks from the backend on component mount
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/tasks");
+        const response = await axios.get(`${BASE_URL}/api/tasks`);
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -32,7 +34,7 @@ const List = () => {
           status: "Pending",
         };
         // Make a POST request to the backend to add the task
-        const response = await axios.post("http://localhost:5000/api/tasks", newTask);
+        const response = await axios.post(`${BASE_URL}/api/tasks`, newTask);
         setTasks([...tasks, response.data]);
         setTask(""); // Clear the input field after adding the task
       } catch (error) {
@@ -43,7 +45,7 @@ const List = () => {
 
   const toggleStar = async (id) => {
     try {
-      const response = await axios.patch(`http://localhost:5000/api/tasks/${id}/important`);
+      const response = await axios.patch(`${BASE_URL}/api/tasks/${id}/important`);
       const updatedTask = response.data;
 
       // Update the task in the local state
@@ -59,7 +61,7 @@ const List = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
+      await axios.delete(`${BASE_URL}/api/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -68,7 +70,7 @@ const List = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`http://localhost:5000/api/tasks/${id}`, { status });
+      await axios.patch(`${BASE_URL}/api/tasks/${id}`, { status });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task._id === id ? { ...task, status } : task
@@ -86,7 +88,7 @@ const List = () => {
 
   const saveEdit = async (id) => {
     try {
-      const updatedTask = await axios.patch(`http://localhost:5000/api/tasks/${id}`, {
+      const updatedTask = await axios.patch(`${BASE_URL}/api/tasks/${id}`, {
         text: editedText,
       });
       setTasks((prevTasks) =>

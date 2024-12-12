@@ -9,7 +9,7 @@ const Status = () => {
     useEffect(() => {
         const fetchTasks = async () => {
             try {
-                const response = await fetch("http://localhost:5000/api/tasks");
+                const response = await fetch("http://stark-ravine-55105-4213c3435c17.herokuapp.com/api/tasks");
                 const data = await response.json();
                 setTasks(data);
             } catch (err) {
