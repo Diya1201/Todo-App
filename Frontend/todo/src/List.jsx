@@ -14,7 +14,7 @@ const List = () => {
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axios.get("https://todo-app-u4re.vercel.app/api/tasks"); // Replace with your Vercel backend URL
+        const response = await axios.get("http://localhost:5000/api/tasks");
         setTasks(response.data);
       } catch (error) {
         console.error("Error fetching tasks:", error);
@@ -32,7 +32,7 @@ const List = () => {
           status: "Pending",
         };
         // Make a POST request to the backend to add the task
-        const response = await axios.post("https://todo-app-u4re.vercel.app/api/tasks", newTask); // Replace with your Vercel backend URL
+        const response = await axios.post("http://localhost:5000/api/tasks", newTask);
         setTasks([...tasks, response.data]);
         setTask(""); // Clear the input field after adding the task
       } catch (error) {
@@ -43,7 +43,7 @@ const List = () => {
 
   const toggleStar = async (id) => {
     try {
-      const response = await axios.patch(`https://todo-app-u4re.vercel.app/api/tasks/${id}/important`); // Replace with your Vercel backend URL
+      const response = await axios.patch(`http://localhost:5000/api/tasks/${id}/important`);
       const updatedTask = response.data;
 
       // Update the task in the local state
@@ -59,7 +59,7 @@ const List = () => {
 
   const deleteTask = async (id) => {
     try {
-      await axios.delete(`https://todo-app-u4re.vercel.app/api/tasks/${id}`); // Replace with your Vercel backend URL
+      await axios.delete(`http://localhost:5000/api/tasks/${id}`);
       setTasks(tasks.filter((task) => task._id !== id));
     } catch (error) {
       console.error("Error deleting task:", error);
@@ -68,7 +68,7 @@ const List = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.patch(`https://todo-app-u4re.vercel.app/api/tasks/${id}`, { status }); // Replace with your Vercel backend URL
+      await axios.patch(`http://localhost:5000/api/tasks/${id}`, { status });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
           task._id === id ? { ...task, status } : task
@@ -86,8 +86,8 @@ const List = () => {
 
   const saveEdit = async (id) => {
     try {
-      const updatedTask = await axios.patch(`https://todo-app-u4re.vercel.app/api/tasks/${id}`, {
-        text: editedText, // Update task text
+      const updatedTask = await axios.patch(`http://localhost:5000/api/tasks/${id}`, {
+        text: editedText,
       });
       setTasks((prevTasks) =>
         prevTasks.map((task) =>
